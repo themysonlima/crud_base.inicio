@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pessoa;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,21 +17,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // As quatro pessoas do projeto original
-    foreach (['João', 'Maria', 'Paulo', 'Ana'] as $nome) {
-        Pessoa::create(['nome' => $nome]);
+        foreach (['João', 'Maria', 'Paulo', 'Ana'] as $nome) {
+            Pessoa::create(['nome' => $nome]);
+        }
+        // Administrador (nível 2). A senha é criptografada pelo cast 'hashed'
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@email.com',
+            'password' => '123',
+            'nivel_acesso' => 2,
+        ]);
+        // Usuário comum (nível 1)
+        User::create([
+            'name' => 'Teste',
+            'email' => 'teste@email.com',
+            'password' => '123',
+            'nivel_acesso' => 1,
+        ]);
     }
-    // Administrador (nível 2). A senha é criptografada pelo cast 'hashed'
-    User::create([
-        'name' => 'Admin',
-        'email' => 'admin@exemplo.com',
-        'password' => 'senha1234',
-        'nivel_acesso' => 2,
-    ]);
-    // Usuário comum (nível 1)
-    User::create([
-        'name' => 'Teste',
-        'email' => 'teste@exemplo.com',
-        'password' => 'senha1234',
-        'nivel_acesso' => 1,
-    ]);
 }
